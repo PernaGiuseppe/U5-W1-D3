@@ -11,6 +11,10 @@ import java.util.List;
 @Configuration
 @PropertySource("application.properties")
 public class AppConfig {
+
+    @Value("${seat.price}")
+    private double seatPrice;
+
     @Bean(name = "toppings_tomato")
     public Topping toppingTomatoBean() {
         return new Topping("Tomato", 0, 0);
@@ -35,7 +39,6 @@ public class AppConfig {
     public Topping toppingSalamiBean() {
         return new Topping("Salami", 86, 0.99);
     }
-
 
     @Bean(name = "pizza_margherita")
     public Pizza pizzaMargheritaBean() {
@@ -89,7 +92,7 @@ public class AppConfig {
     }
 
     @Bean("pizzas")
-    List<Pizza> pizzaList() {
+    public List<Pizza> pizzaList() {
         List<Pizza> pizzas = new ArrayList<>();
         pizzas.add(pizzaMargheritaBean());
         pizzas.add(pizzaHawaiianBean());
@@ -99,7 +102,7 @@ public class AppConfig {
     }
 
     @Bean("drinks")
-    List<Drink> drinksList() {
+    public List<Drink> drinksList() {
         List<Drink> drinks = new ArrayList<>();
         drinks.add(lemonadeBean());
         drinks.add(waterBean());
@@ -108,7 +111,7 @@ public class AppConfig {
     }
 
     @Bean("toppings")
-    List<Topping> toppingsList() {
+    public List<Topping> toppingsList() {
         List<Topping> toppings = new ArrayList<>();
         toppings.add(toppingTomatoBean());
         toppings.add(toppingCheeseBean());
@@ -119,17 +122,17 @@ public class AppConfig {
     }
 
     @Bean("Tavolo1")
-    Table getTable1(@Value("${seat.price}") double seatPrice) {
+    public Table getTable1() {
         return new Table(1, 5, true, seatPrice);
     }
 
     @Bean("Tavolo2")
-    Table getTable2(@Value("${seat.price}") double seatPrice) {
+    public Table getTable2() {
         return new Table(2, 4, true, seatPrice);
     }
 
     @Bean("Tavolo3")
-    Table getTable3(@Value("${seat.price}") double seatPrice) {
+    public Table getTable3() {
         return new Table(3, 8, true, seatPrice);
     }
 }

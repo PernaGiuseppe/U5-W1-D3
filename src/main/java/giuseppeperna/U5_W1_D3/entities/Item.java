@@ -1,8 +1,5 @@
 package giuseppeperna.U5_W1_D3.entities;
 
-import lombok.Getter;
-
-@Getter
 public abstract class Item {
 
     protected int calories;
@@ -13,4 +10,11 @@ public abstract class Item {
         this.price = price;
     }
 
+    public int getCalories() {
+        return calories;
+    }
+
+    public double getPrice() {
+        return price;
+    }
 }

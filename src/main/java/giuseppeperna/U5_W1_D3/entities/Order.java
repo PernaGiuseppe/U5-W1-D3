@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Order {
+
     private int numeroOrdine;
     private State state;
     private int numCoperti;
@@ -15,9 +16,9 @@ public class Order {
 
     public Order(int numCoperti, Table table) {
         Random rndm = new Random();
-        if (table.getNumMaxCoperti() <= numCoperti)
+        if (table.getNumMaxCoperti() < numCoperti)
             throw new RuntimeException("Numero coperti maggiore di numero massimo posti sul tavolo!");
-        this.numeroOrdine = rndm.nextInt(1000, 100000);
+        this.numeroOrdine = rndm.nextInt(100000);
         this.state = State.IN_CORSO;
         this.numCoperti = numCoperti;
         this.oraAcquisizione = LocalTime.now();
@@ -30,7 +31,8 @@ public class Order {
     }
 
     public double getTotal() {
-        return this.orderedProducts.stream().mapToDouble(Item::getPrice).sum() + (this.table.getCostoCoperto() * this.numCoperti);
+        return this.orderedProducts.stream().mapToDouble(Item::getPrice).sum()
+                + (this.table.getCostoCoperto() * this.numCoperti);
     }
 
     public void print() {
@@ -42,6 +44,5 @@ public class Order {
         System.out.println("Lista: ");
         this.orderedProducts.forEach(System.out::println);
         System.out.println("totale--> " + this.getTotal());
-
     }
 }
